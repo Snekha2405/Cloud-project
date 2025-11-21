@@ -24,3 +24,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .env
+
+
+# Terraform local state and providers
+.terraform/
+infra/.terraform/
+*.tfstate
+*.tfstate.backup
