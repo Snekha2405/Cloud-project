@@ -15,8 +15,10 @@ output "cosmos_endpoint" {
 }
 
 output "openai_endpoint" {
-  value = azurerm_cognitive_account.openai.endpoint
+  value       = var.enable_openai && length(azurerm_cognitive_account.openai) > 0 ? azurerm_cognitive_account.openai[0].endpoint : ""
+  description = "Endpoint of Azure OpenAI account"
 }
+
 
 output "openai_deployment_name" {
   value = azurerm_cognitive_deployment.chat.name
