@@ -11,7 +11,7 @@ resource "azurerm_service_plan" "plan" {
   resource_group_name = azurerm_resource_group.rg.name
 
   os_type  = "Linux"
-  sku_name = "B1" # Basic tier; change to S1/P1v3 etc. for production
+  sku_name = "B1" 
 }
 
 # Web App for Node backend
