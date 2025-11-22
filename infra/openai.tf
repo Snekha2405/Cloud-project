@@ -1,6 +1,6 @@
 resource "azurerm_cognitive_account" "openai" {
   name                = "${var.project_name}-aoai-${var.environment}"
-  location            = "eastus"   # 👈 Azure OpenAI supported region
+  location            = "eastus"   
   resource_group_name = azurerm_resource_group.rg.name
 
   kind     = "OpenAI"
