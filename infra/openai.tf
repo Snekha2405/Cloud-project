@@ -1,11 +1,12 @@
 resource "azurerm_cognitive_account" "openai" {
   name                = "${var.project_name}-aoai-${var.environment}"
-  location            = azurerm_resource_group.rg.location
+  location            = "eastus"   # 👈 Azure OpenAI supported region
   resource_group_name = azurerm_resource_group.rg.name
 
   kind     = "OpenAI"
   sku_name = "S0"
 }
+
 
 resource "azurerm_cognitive_deployment" "chat" {
   name                 = "gpt-35-turbo"   # deployment name must match your server.js
