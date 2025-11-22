@@ -21,3 +21,8 @@ variable "cosmos_db_name" {
   default     = "CollegeEventsDB"
   description = "Cosmos DB SQL database name"
 }
+variable "enable_openai" {
+  type        = bool
+  default     = false
+  description = "Whether to provision Azure OpenAI resources"
+}
