@@ -33,17 +33,20 @@ resource "azurerm_linux_web_app" "backend" {
 
   # App settings will be filled after Cosmos & OpenAI are defined
   app_settings = {
-    "NODE_ENV" = var.environment
-    "PORT"     = "3000"
-    # Cosmos DB (your server.js uses COSMOS_URI, COSMOS_KEY, COSMOS_DBNAME)
-    "COSMOS_URI"    = azurerm_cosmosdb_account.cosmos.endpoint
-    "COSMOS_KEY"    = azurerm_cosmosdb_account.cosmos.primary_key
-    "COSMOS_DBNAME" = azurerm_cosmosdb_sql_database.db.name
+  # Node
+  "NODE_ENV" = var.environment
+  "PORT"     = "3000"
 
-    # Azure OpenAI (your server.js uses ENDPOINT, APIKEY, DEPLOYMENT, APIVERSION)
-    "ENDPOINT"   = azurerm_cognitive_account.openai.endpoint
-    "APIKEY"     = azurerm_cognitive_account.openai.primary_access_key
-    "DEPLOYMENT" = azurerm_cognitive_deployment.chat.name
-    "APIVERSION" = "2024-02-15-preview"
-  }
+  # Cosmos DB
+  "COSMOS_URI"    = azurerm_cosmosdb_account.cosmos.endpoint
+  "COSMOS_KEY"    = azurerm_cosmosdb_account.cosmos.primary_key
+  "COSMOS_DBNAME" = azurerm_cosmosdb_sql_database.db.name
+
+  # Azure OpenAI (only if enabled)
+  "ENDPOINT"   = var.enable_openai && length(azurerm_cognitive_account.openai) > 0 ? azurerm_cognitive_account.openai[0].endpoint : ""
+  "APIKEY"     = var.enable_openai && length(azurerm_cognitive_account.openai) > 0 ? azurerm_cognitive_account.openai[0].primary_access_key : ""
+  "DEPLOYMENT" = var.enable_openai && length(azurerm_cognitive_deployment.chat) > 0 ? azurerm_cognitive_deployment.chat[0].name : ""
+  "APIVERSION" = "2024-02-15-preview"
+}
+
 }
